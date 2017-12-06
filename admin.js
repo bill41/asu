@@ -2,6 +2,14 @@
 
 var getById = function (id) { return document.getElementById(id); };
 
+var names = [];
+var numbers = [];
+var dates = [];
+var lengths = [];
+var days = [];
+var times = [];
+var descriptions = [];
+
 var addClass = function() {
     var courseName = getById("course-name").value;
     var courseNumber = getById("course-number").value.toUpperCase();
@@ -12,7 +20,28 @@ var addClass = function() {
     var courseDesc = getById("course-desc").value;
 
     validateInput(courseName, courseNumber, courseDate, courseLength, courseDay, courseTime, courseDesc);
+
+    names.push(courseName);
+    numbers.push(courseNumber);
+    dates.push(courseDate);
+    lengths.push(courseLength);
+    days.push(courseDay);
+    times.push(courseTime);
+    descriptions.push(courseDesc);
+
+    addLocalStorage(names, numbers, dates, lengths, days, times, descriptions);
+
 };
+
+var addLocalStorage = function(names, numbers, dates, lengths, days, times, descriptions) {
+    localStorage.setItem("names", JSON.stringify(names));
+    localStorage.setItem("numbers", JSON.stringify(numbers));
+    localStorage.setItem("dates", JSON.stringify(dates));
+    localStorage.setItem("lengths", JSON.stringify(lengths));
+    localStorage.setItem("days", JSON.stringify(days));
+    localStorage.setItem("times", JSON.stringify(times));
+    localStorage.setItem("descriptions", JSON.stringify(descriptions));
+}
 
 var validateInput = function(courseName, courseNumber, courseDate, courseLength, courseDay, courseTime, courseDesc) {
 
@@ -57,6 +86,7 @@ var validateInput = function(courseName, courseNumber, courseDate, courseLength,
             getById("error-course-start").innerHTML = "Enter a Future Date";
         }
     }
+
     if (courseDesc === "") {
         getById("error-course-description").innerHTML = "Enter a Class Description";
      }
